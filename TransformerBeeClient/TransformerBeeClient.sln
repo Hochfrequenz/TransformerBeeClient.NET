@@ -1,0 +1,28 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransformerBeeClient", "TransformerBeeClient\TransformerBeeClient.csproj", "{C11ACBEB-C1F2-44A2-835F-BF3F82925F2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransformerBeeClient.UnitTest", "TransformerBeeClient.UnitTest\TransformerBeeClient.UnitTest.csproj", "{80EF1570-CB4E-4E56-A8BC-56C787A48543}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransformerBeeClient.IntegrationTest", "TransformerBeeClient.IntegrationTest\TransformerBeeClient.IntegrationTest.csproj", "{77598126-7BB0-4C07-BF06-331033E0DE78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C11ACBEB-C1F2-44A2-835F-BF3F82925F2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C11ACBEB-C1F2-44A2-835F-BF3F82925F2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C11ACBEB-C1F2-44A2-835F-BF3F82925F2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C11ACBEB-C1F2-44A2-835F-BF3F82925F2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80EF1570-CB4E-4E56-A8BC-56C787A48543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80EF1570-CB4E-4E56-A8BC-56C787A48543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80EF1570-CB4E-4E56-A8BC-56C787A48543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80EF1570-CB4E-4E56-A8BC-56C787A48543}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77598126-7BB0-4C07-BF06-331033E0DE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77598126-7BB0-4C07-BF06-331033E0DE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77598126-7BB0-4C07-BF06-331033E0DE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77598126-7BB0-4C07-BF06-331033E0DE78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

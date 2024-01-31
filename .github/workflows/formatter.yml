@@ -1,0 +1,19 @@
+name: dotnet-format
+
+on: [push, pull_request]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.100
+      - name: Install dotnet-format
+        run: |
+          dotnet tool install -g dotnet-format
+      - name: Run dotnet-format
+        working-directory: ./TransformerBeeClient
+        run: dotnet-format TransformerBeeClient.sln --check

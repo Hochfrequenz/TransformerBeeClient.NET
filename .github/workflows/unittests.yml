@@ -1,0 +1,35 @@
+name: Unit Tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        dotnet-version: ["6.0.201", "7.0.100", "8.0.100"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Install dependencies
+        working-directory: TransformerBeeClient
+        run: dotnet restore TransformerBeeClient.sln
+
+      - name: Build
+        working-directory: TransformerBeeClient
+        run: dotnet build --no-restore
+
+      - name: Run Unit Tests
+        working-directory: TransformerBeeClient/TransformerBeeClient.UnitTest
+        run: |
+          dotnet test
