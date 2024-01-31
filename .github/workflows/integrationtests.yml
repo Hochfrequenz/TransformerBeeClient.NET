@@ -38,7 +38,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: TransformerBeeClient
-        run: dotnet restore CutoverTasks.sln
+        run: dotnet restore TransformerBeeClient.sln
 
       - name: Build
         working-directory: TransformerBeeClient

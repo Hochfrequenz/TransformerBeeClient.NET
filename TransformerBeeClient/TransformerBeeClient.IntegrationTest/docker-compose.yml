@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  transformer:
+    image: ghcr.io/enercity/edifact-bo4e-converter/edifactbo4econverter:v1.1.29
+    environment:
+      - StorageProvider=Directory
+    ports:
+      - ${TRANSFORMER_GRPC_PORT:-5020}:5000
+      - ${TRANSFORMER_REST_PORT:-5021}:5001
