@@ -1,4 +1,4 @@
-﻿namespace TransformerBeeClient;
+namespace TransformerBeeClient;
 
 /// <summary>
 /// a client for the transformer.bee REST API
