@@ -1,0 +1,38 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.100"
+
+      - name: Install dependencies
+        working-directory: CutoverTasks
+        run: dotnet restore CutoverTasks.sln
+
+      - name: Build
+        working-directory: CutoverTasks
+        run: dotnet build --no-restore
+
+      - name: Start containers
+        run: docker-compose -f "CutoverTasks/docker-compose.integrationtest.yml" up -d
+
+      - name: Run Integration Tests
+        working-directory: CutoverTasks/IntegrationTests
+        run: |
+          dotnet test
