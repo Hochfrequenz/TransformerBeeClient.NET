@@ -1,4 +1,4 @@
-﻿namespace TransformerBeeClient;
+namespace TransformerBeeClient;
 
 /// <summary>
 /// Utility extension methods

@@ -1,4 +1,4 @@
-﻿using EDILibrary;
+using EDILibrary;
 using TransformerBeeClient.Model;
 
 namespace TransformerBeeClient;
