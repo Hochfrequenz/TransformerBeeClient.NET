@@ -22,14 +22,14 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
 
       - name: Install dependencies
-        working-directory: CutoverTasks
-        run: dotnet restore CutoverTasks.sln
+        working-directory: TransformerBeeClient
+        run: dotnet restore TransformerBeeClient.sln
 
       - name: Build
-        working-directory: CutoverTasks
+        working-directory: TransformerBeeClient
         run: dotnet build --no-restore
 
       - name: Run Unit Tests
-        working-directory: CutoverTasks/UnitTests
+        working-directory: TransformerBeeClient/TransformerBeeClient.UnitTest
         run: |
           dotnet test
