@@ -1,11 +1,22 @@
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using EDILibrary;
+using TransformerBeeClient.Model;
+
 namespace TransformerBeeClient;
 
 /// <summary>
 /// a client for the transformer.bee REST API
 /// </summary>
-public class TransformerBeeRestClient
+public class TransformerBeeRestClient : ICanConvertToBo4e
 {
     private readonly HttpClient _httpClient;
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        Converters = { new JsonStringEnumConverter() }
+    };
 
     /// <summary>
     /// Provide the constructor with a http client factory.
@@ -42,5 +53,40 @@ public class TransformerBeeRestClient
         var versionUrl = uriBuilder.Uri.AbsoluteUri;
         var response = await _httpClient.GetAsync(versionUrl);
         return response.IsSuccessStatusCode;
+    }
+
+    /// <summary>
+    /// convert an edifact to BO4E
+    /// </summary>
+    /// <param name="edifact">edifact message as string</param>
+    /// <param name="formatVersion"><see cref="EdifactFormatVersion"/></param>
+    /// <returns><see cref="Marktnachricht"/></returns>
+    /// <exception cref="HttpRequestException"></exception>
+    public async Task<List<Marktnachricht>> ConvertToBo4e(string edifact, EdifactFormatVersion formatVersion)
+    {
+        var uriBuilder = new UriBuilder(_httpClient!.BaseAddress)
+        {
+            Path = "/v1/transformer/EdiToBo4E"
+        };
+
+        var convertUrl = uriBuilder.Uri.AbsoluteUri;
+        var request = new EdifactToBo4eRequest
+        {
+            Edifact = edifact,
+            FormatVersion = formatVersion,
+        };
+        var requestJson = JsonSerializer.Serialize(request, _jsonSerializerOptions);
+        var httpResponse = await _httpClient.PostAsync(convertUrl, new StringContent(requestJson, Encoding.UTF8, "application/json"));
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            throw new HttpRequestException($"Could not convert {edifact} to BO4E. Status code: {httpResponse.StatusCode}");
+        }
+        var responseContent = await httpResponse.Content.ReadAsStringAsync();
+        var bo4eResponse = JsonSerializer.Deserialize<EdifactToBo4eResponse>(responseContent, _jsonSerializerOptions);
+        // todo: handle the case that the deserialization fails and bo4eResponse is null
+        var unescapedJson = bo4eResponse!.Bo4eJsonString.Unescape();
+        var result = JsonSerializer.Deserialize<List<Marktnachricht>>(unescapedJson, _jsonSerializerOptions);
+        // todo: handle the case that the deserialization fails and result is null
+        return result;
     }
 }
