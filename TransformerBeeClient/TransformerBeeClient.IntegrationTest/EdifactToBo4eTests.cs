@@ -61,5 +61,6 @@ public class EdifactToBo4eTestsWithAuthentication : IClassFixture<GithubActionCl
         var result = await client.ConvertToBo4e(edifactString, EdifactFormatVersion.FV2310);
         result.Should().BeOfType<List<Marktnachricht>>();
         result.Single().Transaktionen.Should().NotBeNullOrEmpty();
+        await Console.Out.WriteLineAsync("Successfully converted edifact to bo4e - with authentication!");
     }
 }
