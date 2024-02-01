@@ -22,14 +22,24 @@ Install it from nuget [TransformerBeeClient](https://www.nuget.org/packages/Tran
 dotnet add package TransformerBeeClient
 ```
 
-### Use it in your code
+### Authentication
+You need to provide something that implements `ITransformerBeeAuthenticationProvider` to the `TransformerBeeClient`.
 
-#### Authentication
-You need to provide something that implements `ITransformerBeeAuthenticator` to the `TransformerBeeClient`.
-If you're hosting transformer.bee in the same network and there is no authentication, you can use the `NoAuthenticationProvider` class.
+#### No Authentication
+If you're hosting transformer.bee in the same network and there is no authentication, you can use the `NoAuthenticationProvider`.
+```csharp
+using TransformerBeeClient;
+var myAuthenticator = new NoAuthenticationProvider();
+```
 
-Then, you can use the client like this:
+#### OAuth2 Client and Secret
+If, which is more likely, Hochfrequenz provided you with a client ID and secret, you can use the `ClientIdClientSecretAuthenticationProvider` class like this:
+```csharp
+using TransformerBeeClient;
+var myAuthenticator = new ClientIdClientSecretAuthenticationProvider("YOUR_CLIENT_ID", "YOUR_CLIENT_SECRET");
+```
 
+...todo
 ```csharp
 
 ```
