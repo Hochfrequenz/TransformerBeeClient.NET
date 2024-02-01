@@ -15,11 +15,11 @@ Ask info@hochfrequenz.de or ping @JoschaMetze on GitHub to get one.
 You can check if your account is working by logging [into our stage environment](https://transformerstage.utilibee.io/app/).
 
 ### Using the client
-
-Install the package from NuGet:
+![Nuget Package](https://badgen.net/nuget/v/TransformerBeeClient)
+Install it from nuget [TransformerBeeClient](https://www.nuget.org/packages/TransformerBeeClient):
 
 ```bash
-nuget install Hochfrequenz.transformer.bee.Client
+dotnet add package TransformerBeeClient
 ```
 
 ### Use it in your code
@@ -32,6 +32,7 @@ Then, you can use the client like this:
 
 ## Development
 
+### Integration Tests
 To run the integration test login to your docker to access the transformer.bee image.
 
 ```bash
@@ -39,3 +40,8 @@ docker login ghcr.io -u YOUR_GITHUB_USERNAME
 ```
 
 then paste your PAT similarly to described in the [integration test CI pipeline](.github/workflows/integrationtests.yml)
+
+### Release (CI/CD)
+To release a new version of this library, [create a new release](https://github.com/Hochfrequenz/transformer.bee_client.net/releases/new) in GitHub.
+Make sure its tag starts with `v` and the version number, e.g. `v1.2.3`.
+Tags without a release wont trigger the release workflow; This enforces that you have to write a changelog before releasing.
