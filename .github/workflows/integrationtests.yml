@@ -48,3 +48,10 @@ jobs:
         working-directory: TransformerBeeClient/TransformerBeeClient.IntegrationTest
         run: |
           dotnet test
+      - name: Run Integration Tests (against real service)
+        working-directory: TransformerBeeClient/TransformerBeeClient.IntegrationTest
+        env:
+          CLIENT_ID: ${{ secrets.AUTH0_TEST_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.AUTH0_TEST_CLIENT_SECRET }}
+        run: |
+          dotnet test
