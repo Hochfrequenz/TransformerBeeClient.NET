@@ -45,3 +45,4 @@ then paste your PAT similarly to described in the [integration test CI pipeline]
 To release a new version of this library, [create a new release](https://github.com/Hochfrequenz/transformer.bee_client.net/releases/new) in GitHub.
 Make sure its tag starts with `v` and the version number, e.g. `v1.2.3`.
 Tags without a release wont trigger the release workflow; This enforces that you have to write a changelog before releasing.
+Releases are not restricted to the main branch but we prefer them to happen there.
