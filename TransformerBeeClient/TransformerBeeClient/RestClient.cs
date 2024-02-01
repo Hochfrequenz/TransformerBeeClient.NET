@@ -90,7 +90,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         var responseContent = await httpResponse.Content.ReadAsStringAsync();
         var bo4eResponse = JsonSerializer.Deserialize<EdifactToBo4eResponse>(responseContent, _jsonSerializerOptions);
         // todo: handle the case that the deserialization fails and bo4eResponse is null
-        var unescapedJson = bo4eResponse!.Bo4eJsonString.Unescape();
+        var unescapedJson = bo4eResponse!.Bo4eJsonString!.Unescape();
         var result = JsonSerializer.Deserialize<List<Marktnachricht>>(unescapedJson, _jsonSerializerOptions);
         // todo: handle the case that the deserialization fails and result is null
         return result!;

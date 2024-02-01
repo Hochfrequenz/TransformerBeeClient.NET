@@ -10,8 +10,8 @@ internal static class Utils
     /// </summary>
     /// <param name="s"></param>
     /// <returns></returns>
-    internal static string Unescape(this string s)
+    internal static string? Unescape(this string? s)
     {
-        return s.Replace("\\n", "\n");
+        return s?.Replace("\\n", "\n");
     }
 }
