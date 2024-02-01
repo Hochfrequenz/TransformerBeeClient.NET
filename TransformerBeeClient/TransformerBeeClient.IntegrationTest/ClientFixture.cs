@@ -24,6 +24,6 @@ public class ClientFixture : IClassFixture<ClientFixture>
         var serviceProvider = services.BuildServiceProvider();
         ServiceCollection = services;
         HttpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
-        AuthenticationProvider = new NoAuthenticationprovider(); // easy for integration tests with transformer.bee running in docker
+        AuthenticationProvider = new NoAuthenticationProvider(); // easy for integration tests with transformer.bee running in docker
     }
 }

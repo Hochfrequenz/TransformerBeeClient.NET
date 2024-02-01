@@ -24,6 +24,10 @@ dotnet add package TransformerBeeClient
 
 ### Use it in your code
 
+#### Authentication
+You need to provide something that implements `ITransformerBeeAuthenticator` to the `TransformerBeeClient`.
+If you're hosting transformer.bee in the same network and there is no authentication, you can use the `NoAuthenticationProvider` class.
+
 Then, you can use the client like this:
 
 ```csharp

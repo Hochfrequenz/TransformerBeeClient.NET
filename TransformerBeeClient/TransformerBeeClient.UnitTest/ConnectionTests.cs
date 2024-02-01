@@ -15,7 +15,7 @@ public class ConnectionTests
             client.BaseAddress = null;
         });
         var serviceProvider = services.BuildServiceProvider();
-        var instantiateClient = () => new TransformerBeeRestClient(serviceProvider.GetService<IHttpClientFactory>(), new NoAuthenticationprovider());
+        var instantiateClient = () => new TransformerBeeRestClient(serviceProvider.GetService<IHttpClientFactory>(), new NoAuthenticationProvider());
         instantiateClient.Should().Throw<ArgumentNullException>();
     }
 }
