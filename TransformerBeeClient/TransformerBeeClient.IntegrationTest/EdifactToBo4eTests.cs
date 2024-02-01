@@ -11,7 +11,7 @@ namespace TransformerBeeClient.IntegrationTest;
 public class EdifactToBo4eTests : IClassFixture<ClientFixture>
 {
     private readonly ClientFixture _client;
-    
+
     private readonly ITransformerBeeAuthenticationProvider _authenticationProvider;
 
     public EdifactToBo4eTests(ClientFixture clientFixture)

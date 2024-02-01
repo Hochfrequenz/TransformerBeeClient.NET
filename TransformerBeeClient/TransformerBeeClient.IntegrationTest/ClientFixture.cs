@@ -13,7 +13,7 @@ public class ClientFixture : IClassFixture<ClientFixture>
     public readonly ServiceCollection ServiceCollection;
 
     public readonly ITransformerBeeAuthenticationProvider AuthenticationProvider;
-    
+
     public ClientFixture()
     {
         var services = new ServiceCollection();
