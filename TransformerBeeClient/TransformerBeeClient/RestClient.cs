@@ -91,7 +91,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         var bo4eResponse = JsonSerializer.Deserialize<EdifactToBo4eResponse>(responseContent, _jsonSerializerOptions);
         // todo: handle the case that the deserialization fails and bo4eResponse is null
         var unescapedJson = bo4eResponse!.Bo4eJsonString!.Unescape();
-        var result = JsonSerializer.Deserialize<List<Marktnachricht>>(unescapedJson, _jsonSerializerOptions);
+        var result = JsonSerializer.Deserialize<List<Marktnachricht>>(unescapedJson!, _jsonSerializerOptions);
         // todo: handle the case that the deserialization fails and result is null
         return result!;
     }
@@ -122,7 +122,8 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
             throw new HttpRequestException($"Could not convert to EDIFACT; Status code: {httpResponse.StatusCode}");
         }
         var responseContent = await httpResponse.Content.ReadAsStringAsync();
-        var responseBody = JsonSerializer.Deserialize<Bo4eTransactionToEdifactResponse>(responseContent, _jsonSerializerOptions);
+        // todo: ensure that the deserialization does not fail and the response is not empty
+        var responseBody = JsonSerializer.Deserialize<Bo4eTransactionToEdifactResponse>(responseContent!, _jsonSerializerOptions);
         // todo: handle case that deserialization fails and responseBody is null
         return responseBody!.Edifact!;
     }
