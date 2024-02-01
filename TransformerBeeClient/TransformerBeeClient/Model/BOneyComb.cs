@@ -15,12 +15,12 @@ public class BOneyComb
     /// </summary>
     [JsonPropertyName("stammdaten")] // we want to support both System.Text and Newtonsoft as long as BO4E.net does so
     [JsonProperty(PropertyName = "stammdaten")]
-    public List<BusinessObject> Stammdaten { get; set; }
+    public List<BusinessObject>? Stammdaten { get; set; }
 
     /// <summary>
     /// Transaktionsdaten are metadata related to the Marktprozess and are not related to a specific Business object.
     /// </summary>
     [JsonPropertyName("transaktionsdaten")] // we want to support both System.Text and Newtonsoft as long as BO4E.net does so
     [JsonProperty(PropertyName = "transaktionsdaten")]
-    public Dictionary<string, string> Transaktionsdaten { get; set; }
+    public Dictionary<string, string>? Transaktionsdaten { get; set; }
 }

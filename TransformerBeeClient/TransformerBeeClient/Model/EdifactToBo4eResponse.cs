@@ -13,7 +13,7 @@ internal class EdifactToBo4eResponse
     /// the bo4e as plain json string
     /// </summary>
     [System.Text.Json.Serialization.JsonPropertyName("BO4E")]
-    public string Bo4eJsonString { get; set; }
+    public string? Bo4eJsonString { get; set; }
 
     /// <summary>
     /// the format version that was used

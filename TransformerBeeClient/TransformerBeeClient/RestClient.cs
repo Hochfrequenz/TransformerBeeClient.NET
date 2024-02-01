@@ -46,7 +46,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
     /// </returns>
     public async Task<bool> IsAvailable()
     {
-        var uriBuilder = new UriBuilder(_httpClient!.BaseAddress)
+        var uriBuilder = new UriBuilder(_httpClient.BaseAddress!)
         {
             Path = "/version"
         };
@@ -69,7 +69,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         {
             throw new ArgumentNullException(nameof(edifact));
         }
-        var uriBuilder = new UriBuilder(_httpClient!.BaseAddress)
+        var uriBuilder = new UriBuilder(_httpClient!.BaseAddress!)
         {
             Path = "/v1/transformer/EdiToBo4E"
         };
@@ -93,7 +93,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         var unescapedJson = bo4eResponse!.Bo4eJsonString.Unescape();
         var result = JsonSerializer.Deserialize<List<Marktnachricht>>(unescapedJson, _jsonSerializerOptions);
         // todo: handle the case that the deserialization fails and result is null
-        return result;
+        return result!;
     }
 
     public async Task<string> ConvertToEdifact(BOneyComb boneyComb, EdifactFormatVersion formatVersion)
@@ -102,7 +102,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         {
             throw new ArgumentNullException(nameof(boneyComb));
         }
-        var uriBuilder = new UriBuilder(_httpClient!.BaseAddress)
+        var uriBuilder = new UriBuilder(_httpClient!.BaseAddress!)
         {
             Path = "/v1/transformer/Bo4ETransactionToEdi"
         };
@@ -123,6 +123,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         }
         var responseContent = await httpResponse.Content.ReadAsStringAsync();
         var responseBody = JsonSerializer.Deserialize<Bo4eTransactionToEdifactResponse>(responseContent, _jsonSerializerOptions);
-        return responseBody.Edifact;
+        // todo: handle case that deserialization fails and responseBody is null
+        return responseBody!.Edifact!;
     }
 }

@@ -11,5 +11,5 @@ internal class Bo4eTransactionToEdifactResponse
     /// the edifact as plain string
     /// </summary>
     [System.Text.Json.Serialization.JsonPropertyName("EDI")]
-    public string Edifact { get; set; }
+    public string? Edifact { get; set; }
 }
