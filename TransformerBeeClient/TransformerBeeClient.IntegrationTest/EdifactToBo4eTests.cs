@@ -52,7 +52,8 @@ public class EdifactToBo4eTestsWithAuthentication : IClassFixture<GithubActionCl
     {
         if (_authenticationProvider is null)
         {
-            return; // skip the test if no authentication provider is available
+            await Console.Out.WriteLineAsync("Skipping tests because no client id or client secret is available");
+            return;
         }
         var httpClientFactory = _client.HttpClientFactory;
         ICanConvertToBo4e client = new TransformerBeeRestClient(httpClientFactory, _authenticationProvider);

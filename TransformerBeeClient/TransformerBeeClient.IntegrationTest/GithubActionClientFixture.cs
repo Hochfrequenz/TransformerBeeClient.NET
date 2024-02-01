@@ -21,6 +21,7 @@ public class GithubActionClientFixture : IClassFixture<GithubActionClientFixture
         var clientSecret = Environment.GetEnvironmentVariable("CLIENT_SECRET");
         if (string.IsNullOrWhiteSpace(clientId) || string.IsNullOrWhiteSpace(clientSecret))
         {
+            Console.Out.WriteLine("Skipping tests because no client id or client secret is available");
             return;
         }
 
