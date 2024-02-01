@@ -43,7 +43,7 @@ public interface ITransformerBeeAuthenticationProvider
     /// </summary>
     /// <returns></returns>
     public bool UseAuthentication();
-    
+
     /// <summary>
     /// provides the token to authenticate against transformer.bee (if and only if <see cref="UseAuthentication"/> is true)
     /// </summary>

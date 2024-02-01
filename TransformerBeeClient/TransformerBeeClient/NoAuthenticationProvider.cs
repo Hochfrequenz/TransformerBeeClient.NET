@@ -1,4 +1,4 @@
-﻿namespace TransformerBeeClient;
+namespace TransformerBeeClient;
 
 /// <summary>
 /// a <see cref="ITransformerBeeAuthenticationProvider"/> stub that just indicates, we don't need to authenticate against transformer.bee, because we're e.g. in the same network

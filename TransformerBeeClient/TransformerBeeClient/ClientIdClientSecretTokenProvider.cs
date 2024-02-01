@@ -1,4 +1,4 @@
-﻿namespace TransformerBeeClient;
+namespace TransformerBeeClient;
 
 using System.Security.Authentication;
 using IdentityModel.Client;
