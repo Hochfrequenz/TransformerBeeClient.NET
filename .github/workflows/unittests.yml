@@ -27,7 +27,7 @@ jobs:
 
       - name: Build
         working-directory: TransformerBeeClient
-        run: dotnet build --no-restore
+        run: dotnet build --no-restore --configuration Release
 
       - name: Run Unit Tests
         working-directory: TransformerBeeClient/TransformerBeeClient.UnitTest

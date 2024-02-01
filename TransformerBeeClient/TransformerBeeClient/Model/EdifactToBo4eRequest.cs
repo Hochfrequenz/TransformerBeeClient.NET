@@ -13,7 +13,7 @@ internal class EdifactToBo4eRequest
     /// the edifact as plain string
     /// </summary>
     [System.Text.Json.Serialization.JsonPropertyName("EDI")]
-    public string Edifact { get; set; }
+    public string? Edifact { get; set; }
 
     /// <summary>
     /// the format version to use
