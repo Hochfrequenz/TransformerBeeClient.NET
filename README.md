@@ -24,11 +24,19 @@ dotnet add package TransformerBeeClient
 
 ### Use it in your code
 
-Then, you can use the client like this:
+This library is thought to be used in ASP.NET Core applications.
+That's why it assumes that you have an `IHttpClientFactory` available in your dependency injection container.
 
+Then, setup your dependency injection container like this:
 ```csharp
-
+using TransformerBeeClient;
+// ...
+builder.Services.AddHttpClient();
+builder.Services.AddTransient<ICanConvertToBo4e, TransformerBeeRestClient>();
+builder.Services.AddTransient<ICanConvertToEdifact, TransformerBeeRestClient>();
 ```
+
+If you're not using ASP.NET Core, you can still use this library, by using [this little workaround](https://chat.openai.com/share/fa63110a-646e-4fd1-aacb-3d449c285750).
 
 ## Development
 
