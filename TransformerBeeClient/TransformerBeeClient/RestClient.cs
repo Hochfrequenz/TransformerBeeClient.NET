@@ -9,7 +9,7 @@ namespace TransformerBeeClient;
 /// <summary>
 /// a client for the transformer.bee REST API
 /// </summary>
-public class TransformerBeeRestClient : ICanConvertToBo4e
+public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
 {
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
@@ -24,6 +24,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e
     /// </summary>
     /// <param name="httpClientFactory">factory to create the http client from</param>
     /// <param name="clientName">name used to create the client</param>
+    /// <remarks>Find the OpenAPI Spec here: https://transformerstage.utilibee.io/swagger/index.html</remarks>
     public TransformerBeeRestClient(IHttpClientFactory httpClientFactory, string clientName = "TransformerBee")
     {
         _httpClient = httpClientFactory.CreateClient(clientName);
@@ -64,6 +65,10 @@ public class TransformerBeeRestClient : ICanConvertToBo4e
     /// <exception cref="HttpRequestException"></exception>
     public async Task<List<Marktnachricht>> ConvertToBo4e(string edifact, EdifactFormatVersion formatVersion)
     {
+        if (string.IsNullOrWhiteSpace(edifact))
+        {
+            throw new ArgumentNullException(nameof(edifact));
+        }
         var uriBuilder = new UriBuilder(_httpClient!.BaseAddress)
         {
             Path = "/v1/transformer/EdiToBo4E"
@@ -79,6 +84,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e
         var httpResponse = await _httpClient.PostAsync(convertUrl, new StringContent(requestJson, Encoding.UTF8, "application/json"));
         if (!httpResponse.IsSuccessStatusCode)
         {
+            // e.g. 401
             throw new HttpRequestException($"Could not convert {edifact} to BO4E. Status code: {httpResponse.StatusCode}");
         }
         var responseContent = await httpResponse.Content.ReadAsStringAsync();
@@ -88,5 +94,35 @@ public class TransformerBeeRestClient : ICanConvertToBo4e
         var result = JsonSerializer.Deserialize<List<Marktnachricht>>(unescapedJson, _jsonSerializerOptions);
         // todo: handle the case that the deserialization fails and result is null
         return result;
+    }
+
+    public async Task<string> ConvertToEdifact(BOneyComb boneyComb, EdifactFormatVersion formatVersion)
+    {
+        if (boneyComb is null)
+        {
+            throw new ArgumentNullException(nameof(boneyComb));
+        }
+        var uriBuilder = new UriBuilder(_httpClient!.BaseAddress)
+        {
+            Path = "/v1/transformer/Bo4ETransactionToEdi"
+        };
+
+        var convertUrl = uriBuilder.Uri.AbsoluteUri;
+        var bo4eJsonString = JsonSerializer.Serialize(boneyComb, _jsonSerializerOptions);
+        var request = new Bo4eTransactionToEdifactRequest
+        {
+            Bo4eJsonString = bo4eJsonString,
+            FormatVersion = formatVersion,
+        };
+        var requestJson = JsonSerializer.Serialize(request, _jsonSerializerOptions);
+        var httpResponse = await _httpClient.PostAsync(convertUrl, new StringContent(requestJson, Encoding.UTF8, "application/json"));
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            // e.g. 401
+            throw new HttpRequestException($"Could not convert to EDIFACT; Status code: {httpResponse.StatusCode}");
+        }
+        var responseContent = await httpResponse.Content.ReadAsStringAsync();
+        var responseBody = JsonSerializer.Deserialize<Bo4eTransactionToEdifactResponse>(responseContent, _jsonSerializerOptions);
+        return responseBody.Edifact;
     }
 }

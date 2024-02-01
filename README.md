@@ -33,7 +33,9 @@ Then, you can use the client like this:
 ## Development
 
 To run the integration test login to your docker to access the transformer.bee image.
+
 ```bash
 docker login ghcr.io -u YOUR_GITHUB_USERNAME
 ```
+
 then paste your PAT similarly to described in the [integration test CI pipeline](.github/workflows/integrationtests.yml)
