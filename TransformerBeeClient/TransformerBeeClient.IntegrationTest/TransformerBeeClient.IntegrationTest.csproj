@@ -26,6 +26,9 @@
       <None Update="TestEdifacts\FV2310\55001.edi">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="TestEdifacts\FV2310\55001.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

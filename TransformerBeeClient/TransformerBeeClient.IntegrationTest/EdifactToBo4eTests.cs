@@ -1,6 +1,5 @@
 using EDILibrary;
 using FluentAssertions;
-using Microsoft.Extensions.DependencyInjection;
 using TransformerBeeClient.Model;
 using Xunit;
 
@@ -11,7 +10,6 @@ namespace TransformerBeeClient.IntegrationTest;
 /// </summary>
 public class EdifactToBo4eTests : IClassFixture<ClientFixture>
 {
-
     private readonly ClientFixture _client;
 
     public EdifactToBo4eTests(ClientFixture clientFixture)

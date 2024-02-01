@@ -17,3 +17,18 @@ public interface ICanConvertToBo4e
     /// <returns><see cref="Marktnachricht"/></returns>
     public Task<List<Marktnachricht>> ConvertToBo4e(string edifact, EdifactFormatVersion formatVersion);
 }
+
+/// <summary>
+/// Interface of all the things that can convert EDIFACT to BO4E
+/// </summary>
+/// <remarks>This will be useful if you want to mock the client elsewhere</remarks>
+public interface ICanConvertToEdifact
+{
+    /// <summary>
+    /// convert bo4e to edifact
+    /// </summary>
+    /// <param name="boneyComb">transaktion/Geschäftsvorfall as boneycomb</param>
+    /// <param name="formatVersion"><see cref="EdifactFormatVersion"/></param>
+    /// <returns>the edifact as plain string</returns>
+    public Task<string> ConvertToEdifact(BOneyComb boneyComb, EdifactFormatVersion formatVersion);
+}

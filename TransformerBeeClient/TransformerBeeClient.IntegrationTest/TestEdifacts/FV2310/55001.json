@@ -1,0 +1,141 @@
+{
+  "stammdaten": [
+    {
+      "boTyp": "MARKTLOKATION",
+      "versionStruktur": "1",
+      "marktlokationsId": "78889918283",
+      "sparte": "STROM",
+      "energierichtung": "AUSSP",
+      "lokationsadresse": {
+        "postleitzahl": "92247",
+        "ort": "Vilseck",
+        "strasse": "Flughafenstrasse",
+        "hausnummer": "64",
+        "landescode": "DE"
+      }
+    },
+    {
+      "boTyp": "VERTRAG",
+      "versionStruktur": "1",
+      "vertragsart": "ENERGIELIEFERVERTRAG",
+      "sparte": "STROM",
+      "vertragsbeginn": "2022-12-31T23:00:00+00:00",
+      "vertragspartner2": {
+        "boTyp": "GESCHAEFTSPARTNER",
+        "versionStruktur": "1",
+        "anrede": "FRAU",
+        "name1": "Schaefer",
+        "name2": "Ulrike",
+        "gewerbekennzeichnung": false,
+        "partneradresse": {
+          "postleitzahl": "92247",
+          "ort": "Vilseck",
+          "strasse": "Flughafenstrasse",
+          "hausnummer": "64",
+          "landescode": "DE"
+        },
+        "grundlageZurVerringerungDerUmlagenNachEnfg": "KEINE_ANGABE"
+      },
+      "vertragskonditionen": {
+        "haushaltskunde": true,
+        "netznutzungsvertrag": "LIEFERANTEN_NB",
+        "netznutzungszahler": "LIEFERANT"
+      },
+      "gemeinderabatt": 0
+    },
+    {
+      "boTyp": "ZAEHLER",
+      "versionStruktur": "1",
+      "zaehlernummer": "788811123",
+      "sparte": "STROM",
+      "zaehlerkonstante": 1
+    },
+    {
+      "boTyp": "MESSLOKATION",
+      "versionStruktur": "1",
+      "messlokationsId": "DE0000111122223333444455556667778",
+      "sparte": "STROM"
+    },
+    {
+      "boTyp": "ANSPRECHPARTNER",
+      "versionStruktur": "1",
+      "anrede": "FRAU",
+      "vorname": "Ulrike",
+      "nachname": "Schaefer",
+      "adresse": {
+        "postleitzahl": "92247",
+        "ort": "Vilseck",
+        "strasse": "Flughafenstrasse",
+        "hausnummer": "64",
+        "landescode": "DE"
+      },
+      "zustaendigkeit": [
+        {
+          "themengebiet": "MSCONS"
+        }
+      ],
+      "gewerbekennzeichnung": false
+    },
+    {
+      "boTyp": "ANSPRECHPARTNER",
+      "versionStruktur": "1",
+      "anrede": "FRAU",
+      "vorname": "Ulrike",
+      "nachname": "Schaefer",
+      "adresse": {
+        "postleitzahl": "92247",
+        "ort": "Vilseck",
+        "strasse": "Flughafenstrasse",
+        "hausnummer": "64",
+        "landescode": "DE"
+      },
+      "zustaendigkeit": [
+        {
+          "themengebiet": "LIEFERANTENWECHSEL"
+        }
+      ],
+      "gewerbekennzeichnung": false
+    },
+    {
+      "boTyp": "BILANZIERUNG",
+      "versionStruktur": "1",
+      "bilanzkreis": "11X0-0000-0116-J"
+    },
+    {
+      "boTyp": "MARKTTEILNEHMER",
+      "versionStruktur": "1",
+      "gewerbekennzeichnung": true,
+      "rollencodenummer": "9912345789012",
+      "rollencodetyp": "BDEW"
+    },
+    {
+      "boTyp": "MARKTTEILNEHMER",
+      "versionStruktur": "1",
+      "gewerbekennzeichnung": true,
+      "rollencodenummer": "9909876543210",
+      "rollencodetyp": "BDEW"
+    }
+  ],
+  "links": {
+    "bo4e://Messlokation/DE0000111122223333444455556667778/Messlokationszaehler": [
+      "bo4e://zaehler/788811123"
+    ]
+  },
+  "transaktionsdaten": {
+    "sparte": "STROM",
+    "vorgangsnummer": "918273746512345678901",
+    "identifikationslogik": "Z13",
+    "transaktionsgrund": "E01",
+    "lieferrichtung": "AUSSP",
+    "vertragsbeginn": "2022-12-31T23:00:00Z",
+    "pruefidentifikator": "55001",
+    "messlokation": "DE0000111122223333444455556667778",
+    "datenaustauschreferenz": "ASDFHGJ",
+    "absender": "bo4e://Marktteilnehmer/9912345789012",
+    "empfaenger": "bo4e://Marktteilnehmer/9909876543210",
+    "dokumentennummer": "918273746512345678901",
+    "kategorie": "E01",
+    "nachrichtendatum": "2023-06-30T05:58:00Z",
+    "nachrichtenReferenznummer": "11223344556678"
+  }
+}
