@@ -13,7 +13,7 @@ internal class Bo4eTransactionToEdifactRequest
     /// the BOneyComb as json string 
     /// </summary>
     [System.Text.Json.Serialization.JsonPropertyName("BO4E")]
-    public string Bo4eJsonString { get; set; }
+    public string? Bo4eJsonString { get; set; }
 
     /// <summary>
     /// the format version to use

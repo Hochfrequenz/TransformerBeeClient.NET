@@ -21,12 +21,12 @@ public class Marktnachricht
     /// </summary>
     [JsonPropertyName("transaktionen")]// we want to support both System.Text and Newtonsoft as long as BO4E.net does so
     [JsonProperty(PropertyName = "transaktionen")]
-    public List<BOneyComb> Transaktionen { get; set; }
+    public List<BOneyComb>? Transaktionen { get; set; }
 
     /// <summary>
     /// Nachrichtendaten are similar to <see cref="BOneyComb.Transaktionsdaten"/> but are not 100% identical.
     /// </summary>
     [JsonPropertyName("nachrichtendaten")] // we want to support both System.Text and Newtonsoft as long as BO4E.net does so
     [JsonProperty(PropertyName = "nachrichtendaten")]
-    public Dictionary<string, string> Nachrichtendaten { get; set; }
+    public Dictionary<string, string>? Nachrichtendaten { get; set; }
 }
