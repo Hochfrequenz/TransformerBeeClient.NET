@@ -5,21 +5,14 @@ on:
     types: [created, edited]
 
 jobs:
-  push_release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    runs-on: windows-latest
-    env:
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: "true"
+  run_tests:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.100
-      - uses: olegtarasov/get-tag@v2.1
-        id: tagTBC
-        with:
-          tagRegex: "v(\\d+\\.\\d+\\.\\d+)"
       - name: Build/Check for compile errors (dotnet build)
         working-directory: "TransformerBeeClient"
         run: dotnet build --configuration Release
@@ -39,6 +32,25 @@ jobs:
       - name: Run Unit Tests (dotnet test) # never ever release with failing tests!
         working-directory: "TransformerBeeClient"
         run: dotnet test --configuration Release
+  push_release:
+    needs: run_tests
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: windows-latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.100
+      - uses: olegtarasov/get-tag@v2.1
+        id: tagTBC
+        with:
+          tagRegex: "v(\\d+\\.\\d+\\.\\d+)"
+      - name: Build/Check for compile errors (dotnet build)
+        working-directory: "TransformerBeeClient"
+        run: dotnet build --configuration Release
       - name: Create Package TransformerBeeClient (dotnet pack)
         working-directory: "TransformerBeeClient/TransformerBeeClient"
         run: dotnet pack TransformerBeeClient.csproj --configuration Release -p:PackageVersion="${{ steps.tagTBC.outputs.tag }}"
