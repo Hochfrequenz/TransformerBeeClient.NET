@@ -44,12 +44,13 @@ var myAuthenticator = new ClientIdClientSecretAuthenticationProvider("YOUR_CLIEN
 ```
 
 ### Use with ASP.NET Core
-This library is primarily thought to be used in ASP.NET Core applications.
+This library is thought to be  primarily used in ASP.NET Core applications.
 That's why it assumes that you have an `IHttpClientFactory` available in your dependency injection container.
 See the [`ExampleAspNetCoreApplication/Program.cs`](TransformerBeeClient/ExampleAspNetCoreApplication/Program.cs) for a minimal working example.
 
 ### Use without ASP.NET Core
-
+If you're not using ASP.NET Core, you can still use this library but setting up th `IHttpClientFactory` comes with a bit of boilerplate.
+See the [`MweWithoutAspNetTest.cs`](TransformerBeeClient/TransformerBeeClient.IntegrationTest/MweWithoutAspNetTest.cs) for a minimal working example.
 
 ## Development
 
