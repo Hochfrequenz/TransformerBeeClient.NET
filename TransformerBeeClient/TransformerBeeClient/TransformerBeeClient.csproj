@@ -4,6 +4,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TargetFrameworks>net8.0;net6.0;net7.0</TargetFrameworks>
+        <RepositoryUrl>https://github.com/Hochfrequenz/transformer.bee_client.net</RepositoryUrl>
+        <License>MIT</License>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
