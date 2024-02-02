@@ -6,7 +6,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <PreserveCompilationContext>true</PreserveCompilationContext>
     </PropertyGroup>
-
     <ItemGroup>
         <ProjectReference Include="..\TransformerBeeClient\TransformerBeeClient.csproj"/>
     </ItemGroup>
