@@ -10,7 +10,7 @@ Note that the actual conversion happens in the transformer.bee service/backend, 
 ### Prerequisites / Account
 
 First of all, you need an account to use transformer.bee.
-Ask info@hochfrequenz.de or ping @JoschaMetze on GitHub to get one.
+Ask info@hochfrequenz.de or ping [@JoschaMetze](https://github.com/joschametze) on GitHub to get one.
 
 You can check if your account is working by logging [into our stage environment](https://transformerstage.utilibee.io/app/).
 
