@@ -36,6 +36,7 @@ public class EdifactToBo4eTests : IClassFixture<ClientFixture>
 /// <summary>
 /// those tests only run if the environment variables are set up correctly
 /// </summary>
+[Collection("authenticated")]
 public class EdifactToBo4eTestsWithAuthentication : IClassFixture<GithubActionClientFixture>
 {
     private readonly GithubActionClientFixture _client;

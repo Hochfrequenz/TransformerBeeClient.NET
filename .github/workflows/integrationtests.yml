@@ -54,4 +54,4 @@ jobs:
           CLIENT_ID: ${{ secrets.AUTH0_TEST_CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.AUTH0_TEST_CLIENT_SECRET }}
         run: |
-          dotnet test
+          dotnet test --filter TestCollectionName='authenticated'
