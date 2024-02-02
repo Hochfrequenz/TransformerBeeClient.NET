@@ -32,8 +32,9 @@ If you're hosting transformer.bee in the same network or your localhost and ther
 
 ```csharp
 using TransformerBeeClient;
-var myAuthenticator = new NoAuthenticationProvider();
+var myAuthenticator = new NoAuthenticator();
 ```
+Its name says it all 😉 - but you still need it.
 
 #### OAuth2 Client and Secret
 If, which is more likely, Hochfrequenz provided you with a client Id and secret, you can use the `ClientIdClientSecretAuthenticator` class like this:
