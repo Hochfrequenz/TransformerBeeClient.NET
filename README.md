@@ -50,6 +50,13 @@ That's why it assumes that you have an `IHttpClientFactory` available in your de
 ```csharp
 
 using TransformerBeeClient;
+var myAuthenticator = new ClientIdClientSecretAuthenticationProvider("YOUR_CLIENT_ID", "YOUR_CLIENT_SECRET");
+```
+
+...todo
+```csharp
+
+using TransformerBeeClient;
 // ...
 builder.Services.AddHttpClient();
 builder.Services.AddTransient<ICanConvertToBo4e, TransformerBeeRestClient>();
