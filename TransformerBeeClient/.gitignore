@@ -4,3 +4,7 @@ TransformerBeeClient.IntegrationTest/obj
 TransformerBeeClient.IntegrationTest/bin
 TransformerBeeClient.UnitTest/obj
 TransformerBeeClient.UnitTest/bin
+ExampleAspNetCoreApplication/obj
+ExampleAspNetCoreApplication/bin
+ExampleAspNetCoreApplication.Test/obj
+ExampleAspNetCoreApplication.Test/bin

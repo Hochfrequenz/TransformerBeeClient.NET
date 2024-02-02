@@ -15,38 +15,47 @@ Ask info@hochfrequenz.de or ping @JoschaMetze on GitHub to get one.
 You can check if your account is working by logging [into our stage environment](https://transformerstage.utilibee.io/app/).
 
 ### Using the client
-![Nuget Package](https://badgen.net/nuget/v/TransformerBeeClient)
-Install it from nuget [TransformerBeeClient](https://www.nuget.org/packages/TransformerBeeClient):
+
+Install it from nuget [TransformerBeeClient](https://www.nuget.org/packages/TransformerBeeClient) ![Nuget Package](https://badgen.net/nuget/v/TransformerBeeClient):
 
 ```bash
 dotnet add package TransformerBeeClient
 ```
 
 ### Authentication
+
 You need to provide something that implements `ITransformerBeeAuthenticator` to the `TransformerBeeClient`.
 
 #### No Authentication
-If you're hosting transformer.bee in the same network and there is no authentication, you can use the `NoAuthenticator`.
+
+If you're hosting transformer.bee in the same network or your localhost and there is no authentication, you can use the `NoAuthenticator`.
+
 ```csharp
 using TransformerBeeClient;
 var myAuthenticator = new NoAuthenticationProvider();
 ```
 
 #### OAuth2 Client and Secret
-If, which is more likely, Hochfrequenz provided you with a client ID and secret, you can use the `ClientIdClientSecretAuthenticator` class like this:
+If, which is more likely, Hochfrequenz provided you with a client Id and secret, you can use the `ClientIdClientSecretAuthenticator` class like this:
+
 ```csharp
 using TransformerBeeClient;
 var myAuthenticator = new ClientIdClientSecretAuthenticationProvider("YOUR_CLIENT_ID", "YOUR_CLIENT_SECRET");
 ```
 
-...todo
-```csharp
+### Use with ASP.NET Core
+This library is thought to be  primarily used in ASP.NET Core applications.
+That's why it assumes that you have an `IHttpClientFactory` available in your dependency injection container.
+See the [`ExampleAspNetCoreApplication/Program.cs`](TransformerBeeClient/ExampleAspNetCoreApplication/Program.cs) for a minimal working example.
 
-```
+### Use without ASP.NET Core
+If you're not using ASP.NET Core, you can still use this library but setting up th `IHttpClientFactory` comes with a bit of boilerplate.
+See the [`MweWithoutAspNetTest.cs`](TransformerBeeClient/TransformerBeeClient.IntegrationTest/MweWithoutAspNetTest.cs) for a minimal working example.
 
 ## Development
 
 ### Integration Tests
+
 To run the integration test login to your docker to access the transformer.bee image.
 
 ```bash
@@ -56,6 +65,7 @@ docker login ghcr.io -u YOUR_GITHUB_USERNAME
 then paste your PAT similarly to described in the [integration test CI pipeline](.github/workflows/integrationtests.yml)
 
 ### Release (CI/CD)
+
 To release a new version of this library, [create a new release](https://github.com/Hochfrequenz/transformer.bee_client.net/releases/new) in GitHub.
 Make sure its tag starts with `v` and the version number, e.g. `v1.2.3`.
 Tags without a release wont trigger the release workflow; This enforces that you have to write a changelog before releasing.

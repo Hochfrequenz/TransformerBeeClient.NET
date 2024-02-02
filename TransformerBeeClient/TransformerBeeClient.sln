@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransformerBeeClient.UnitTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransformerBeeClient.IntegrationTest", "TransformerBeeClient.IntegrationTest\TransformerBeeClient.IntegrationTest.csproj", "{77598126-7BB0-4C07-BF06-331033E0DE78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleAspNetCoreApplication", "ExampleAspNetCoreApplication\ExampleAspNetCoreApplication.csproj", "{E6F6E532-9758-46C0-AC04-42CC054613C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleAspNetCoreApplication.Test", "ExampleAspNetCoreApplication.Test\ExampleAspNetCoreApplication.Test.csproj", "{39992205-201D-445B-A58D-BB098F5EFC1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{77598126-7BB0-4C07-BF06-331033E0DE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77598126-7BB0-4C07-BF06-331033E0DE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77598126-7BB0-4C07-BF06-331033E0DE78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6F6E532-9758-46C0-AC04-42CC054613C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F6E532-9758-46C0-AC04-42CC054613C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6F6E532-9758-46C0-AC04-42CC054613C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6F6E532-9758-46C0-AC04-42CC054613C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39992205-201D-445B-A58D-BB098F5EFC1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39992205-201D-445B-A58D-BB098F5EFC1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39992205-201D-445B-A58D-BB098F5EFC1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39992205-201D-445B-A58D-BB098F5EFC1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
