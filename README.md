@@ -43,27 +43,13 @@ using TransformerBeeClient;
 var myAuthenticator = new ClientIdClientSecretAuthenticationProvider("YOUR_CLIENT_ID", "YOUR_CLIENT_SECRET");
 ```
 
-### General Setup
+### Use with ASP.NET Core
 This library is primarily thought to be used in ASP.NET Core applications.
 That's why it assumes that you have an `IHttpClientFactory` available in your dependency injection container.
+See the [`ExampleAspNetCoreApplication/Program.cs`](TransformerBeeClient/ExampleAspNetCoreApplication/Program.cs) for a minimal working example.
 
-```csharp
+### Use without ASP.NET Core
 
-using TransformerBeeClient;
-var myAuthenticator = new ClientIdClientSecretAuthenticationProvider("YOUR_CLIENT_ID", "YOUR_CLIENT_SECRET");
-```
-
-...todo
-```csharp
-
-using TransformerBeeClient;
-// ...
-builder.Services.AddHttpClient();
-builder.Services.AddTransient<ICanConvertToBo4e, TransformerBeeRestClient>();
-builder.Services.AddTransient<ICanConvertToEdifact, TransformerBeeRestClient>();
-```
-
-If you're not using ASP.NET Core, you can still use this library, by using [this little workaround](https://chat.openai.com/share/fa63110a-646e-4fd1-aacb-3d449c285750).
 
 ## Development
 
