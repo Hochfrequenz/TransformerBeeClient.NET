@@ -13,17 +13,19 @@ namespace TransformerBeeClient.IntegrationTest;
 public class Bo4eToEdifactTests : IClassFixture<ClientFixture>
 {
     private readonly ClientFixture _client;
+    private readonly ITransformerBeeAuthenticator _authenticator;
 
     public Bo4eToEdifactTests(ClientFixture clientFixture)
     {
         _client = clientFixture;
+        _authenticator = clientFixture.Authenticator;
     }
 
     [Fact]
     public async Task BOneyComb_Can_Be_Converted_To_Edifact()
     {
         var httpClientFactory = _client.HttpClientFactory;
-        ICanConvertToEdifact client = new TransformerBeeRestClient(httpClientFactory);
+        ICanConvertToEdifact client = new TransformerBeeRestClient(httpClientFactory, _authenticator);
         var boneyCombString = await File.ReadAllTextAsync("TestEdifacts/FV2310/55001.json");
         var deserializerOptions = new JsonSerializerOptions
         {
