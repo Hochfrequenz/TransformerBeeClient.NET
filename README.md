@@ -2,7 +2,7 @@
 
 This library is a .NET HTTP client for transformer.bee aka edifact-bo4e-converter.
 
-It allows you to convert EDIFACT messages to BO4E and vice versa by speaking to Hochfreqeunz's transformer.bee service.
+It allows you to convert EDIFACT messages to BO4E and vice versa by speaking to Hochfrequenz's transformer.bee service.
 Note that the actual conversion happens in the transformer.bee service/backend, this library only provides a convenient way to use its API.
 
 ## How to use this library
