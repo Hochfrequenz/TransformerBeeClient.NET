@@ -55,3 +55,8 @@ jobs:
           CLIENT_SECRET: ${{ secrets.AUTH0_TEST_CLIENT_SECRET }}
         run: |
           dotnet test --filter TestCollectionName='authenticated'
+      - name: Run Integration Tests for Example Application
+        working-directory: TransformerBeeClient/ExampleAspNetCoreApplication.Test
+        run: |
+          dotnet build --no-restore
+          dotnet test

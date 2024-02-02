@@ -108,12 +108,13 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         var httpResponse = await _httpClient.PostAsync(convertUrl, new StringContent(requestJson, Encoding.UTF8, "application/json"));
         if (!httpResponse.IsSuccessStatusCode)
         {
+            var errorContent = await httpResponse.Content.ReadAsStringAsync();
             if (httpResponse.StatusCode == HttpStatusCode.Unauthorized && !_authenticator.UseAuthentication())
             {
                 throw new AuthenticationException($"Did you correctly set up the {nameof(ITransformerBeeAuthenticator)}?");
             }
 
-            throw new HttpRequestException($"Could not convert {edifact} to BO4E. Status code: {httpResponse.StatusCode}");
+            throw new HttpRequestException($"Could not convert {edifact} to BO4E. Status code: {httpResponse.StatusCode} / {errorContent}");
         }
 
         var responseContent = await httpResponse.Content.ReadAsStringAsync();
@@ -149,12 +150,13 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         var httpResponse = await _httpClient.PostAsync(convertUrl, new StringContent(requestJson, Encoding.UTF8, "application/json"));
         if (!httpResponse.IsSuccessStatusCode)
         {
+            var errorContent = await httpResponse.Content.ReadAsStringAsync();
             if (httpResponse.StatusCode == HttpStatusCode.Unauthorized && !_authenticator.UseAuthentication())
             {
                 throw new AuthenticationException($"Did you correctly set up the {nameof(ITransformerBeeAuthenticator)}?");
             }
 
-            throw new HttpRequestException($"Could not convert to EDIFACT; Status code: {httpResponse.StatusCode}");
+            throw new HttpRequestException($"Could not convert to EDIFACT; Status code: {httpResponse.StatusCode} / {errorContent}");
         }
 
         var responseContent = await httpResponse.Content.ReadAsStringAsync();
