@@ -3,7 +3,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using TransformerBeeClient.Model;
 
 namespace ExampleAspNetCoreApplication.Test;
@@ -24,7 +23,7 @@ public class ApplicationTest : IClassFixture<WebApplicationFactory<Program>>
         var response = await client.GetAsync("/talkToTransformerBee");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var content = await response.Content.ReadAsStringAsync();
-        var bo4e = JsonSerializer.Deserialize<BOneyComb>(content, new JsonSerializerOptions() { Converters = { new JsonStringEnumConverter() } });
+        var bo4e = JsonSerializer.Deserialize<BOneyComb>(content, new JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } });
         bo4e.Should().NotBeNull();
     }
 }

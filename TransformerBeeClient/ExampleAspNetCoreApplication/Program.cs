@@ -23,3 +23,7 @@ app.MapGet("/talkToTransformerBee", async (ICanConvertToBo4e transformerBeeRestC
     return bo4e.Single().Transaktionen.Single();
 });
 app.Run();
+
+public partial class Program
+{
+} // required for integration testing; If you miss this the test will complain, that it cannot find a 'testhost.deps.json'
