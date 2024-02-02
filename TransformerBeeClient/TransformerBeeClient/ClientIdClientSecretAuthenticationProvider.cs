@@ -5,9 +5,9 @@ using IdentityModel.Client;
 using System.IdentityModel.Tokens.Jwt;
 
 /// <summary>
-/// a <see cref="ITransformerBeeAuthenticationProvider"/> that is based on a client secret and a client id
+/// a <see cref="ITransformerBeeAuthenticator"/> that is based on a client secret and a client id
 /// </summary>
-public class ClientIdClientSecretAuthenticationProvider : ITransformerBeeAuthenticationProvider
+public class ClientIdClientSecretAuthenticator : ITransformerBeeAuthenticator
 {
     protected const string Auth0Domain = "https://hochfrequenz.eu.auth0.com";
     protected const string TransformerBeeScope = "client:default";
@@ -27,7 +27,7 @@ public class ClientIdClientSecretAuthenticationProvider : ITransformerBeeAuthent
     private readonly bool _useAuthentication;
 
     /// <summary>
-    /// <inheritdoc cref="ITransformerBeeAuthenticationProvider.UseAuthentication"/>
+    /// <inheritdoc cref="ITransformerBeeAuthenticator.UseAuthentication"/>
     /// </summary>
     public bool UseAuthentication() => _useAuthentication;
 
@@ -36,10 +36,10 @@ public class ClientIdClientSecretAuthenticationProvider : ITransformerBeeAuthent
     /// </summary>
     private readonly SemaphoreSlim _tokenRequestSemaphore = new(1, 1);
 
-    /// <summary>A <see cref="ITransformerBeeAuthenticationProvider"/> that is based on a client secret and a client id</summary>
+    /// <summary>A <see cref="ITransformerBeeAuthenticator"/> that is based on a client secret and a client id</summary>
     /// <param name="clientId">OAuth2 client secret (ask Hochfrequenz)</param>
     /// <param name="clientSecret">OAuth2 client ID (ask Hochfrequenz)</param>
-    public ClientIdClientSecretAuthenticationProvider(string? clientId, string? clientSecret)
+    public ClientIdClientSecretAuthenticator(string? clientId, string? clientSecret)
     {
         if (!string.IsNullOrWhiteSpace(clientId) && string.IsNullOrWhiteSpace(clientSecret))
         {
@@ -97,7 +97,7 @@ public class ClientIdClientSecretAuthenticationProvider : ITransformerBeeAuthent
     /// </summary>
     /// <returns>the token</returns>
     /// <exception cref="AuthenticationException">if something goes wrong</exception>
-    public async Task<string> GetTokenAsync(HttpClient client)
+    public async Task<string> Authenticate(HttpClient client)
     {
         using (_tokenRequestSemaphore)
         {

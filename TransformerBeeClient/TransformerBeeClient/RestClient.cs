@@ -14,7 +14,7 @@ namespace TransformerBeeClient;
 /// </summary>
 public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
 {
-    private readonly ITransformerBeeAuthenticationProvider _authenticationProvider;
+    private readonly ITransformerBeeAuthenticator _authenticator;
     private readonly HttpClient _httpClient;
 
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
@@ -28,10 +28,10 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
     /// It will create a client from said factory and use the <paramref name="httpClientName"/> for that.
     /// </summary>
     /// <param name="httpClientFactory">factory to create the http client from</param>
-    /// <param name="authenticationProvider">something that tells you whether and how you need to authenticate yourself at transformer.bee</param>
+    /// <param name="authenticator">something that tells you whether and how you need to authenticate yourself at transformer.bee</param>
     /// <param name="httpClientName">name used to create the client</param>
     /// <remarks>Find the OpenAPI Spec here: https://transformerstage.utilibee.io/swagger/index.html</remarks>
-    public TransformerBeeRestClient(IHttpClientFactory httpClientFactory, ITransformerBeeAuthenticationProvider authenticationProvider, string httpClientName = "TransformerBee")
+    public TransformerBeeRestClient(IHttpClientFactory httpClientFactory, ITransformerBeeAuthenticator authenticator, string httpClientName = "TransformerBee")
     {
         _httpClient = httpClientFactory.CreateClient(httpClientName);
         if (_httpClient.BaseAddress == null)
@@ -39,7 +39,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
             throw new ArgumentNullException(nameof(httpClientFactory), $"The http client factory must provide a base address for the client with name '{httpClientName}'");
         }
 
-        _authenticationProvider = authenticationProvider ?? throw new ArgumentNullException(nameof(authenticationProvider));
+        _authenticator = authenticator ?? throw new ArgumentNullException(nameof(authenticator));
     }
 
     /// <summary>
@@ -47,9 +47,9 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
     /// </summary>
     private async Task EnsureAuthentication()
     {
-        if (_authenticationProvider.UseAuthentication())
+        if (_authenticator.UseAuthentication())
         {
-            var token = await _authenticationProvider.GetTokenAsync(_httpClient);
+            var token = await _authenticator.Authenticate(_httpClient);
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
     }
@@ -108,9 +108,9 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         var httpResponse = await _httpClient.PostAsync(convertUrl, new StringContent(requestJson, Encoding.UTF8, "application/json"));
         if (!httpResponse.IsSuccessStatusCode)
         {
-            if (httpResponse.StatusCode == HttpStatusCode.Unauthorized && !_authenticationProvider.UseAuthentication())
+            if (httpResponse.StatusCode == HttpStatusCode.Unauthorized && !_authenticator.UseAuthentication())
             {
-                throw new AuthenticationException($"Did you correctly set up the {nameof(ITransformerBeeAuthenticationProvider)}?");
+                throw new AuthenticationException($"Did you correctly set up the {nameof(ITransformerBeeAuthenticator)}?");
             }
 
             throw new HttpRequestException($"Could not convert {edifact} to BO4E. Status code: {httpResponse.StatusCode}");
@@ -149,9 +149,9 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         var httpResponse = await _httpClient.PostAsync(convertUrl, new StringContent(requestJson, Encoding.UTF8, "application/json"));
         if (!httpResponse.IsSuccessStatusCode)
         {
-            if (httpResponse.StatusCode == HttpStatusCode.Unauthorized && !_authenticationProvider.UseAuthentication())
+            if (httpResponse.StatusCode == HttpStatusCode.Unauthorized && !_authenticator.UseAuthentication())
             {
-                throw new AuthenticationException($"Did you correctly set up the {nameof(ITransformerBeeAuthenticationProvider)}?");
+                throw new AuthenticationException($"Did you correctly set up the {nameof(ITransformerBeeAuthenticator)}?");
             }
 
             throw new HttpRequestException($"Could not convert to EDIFACT; Status code: {httpResponse.StatusCode}");

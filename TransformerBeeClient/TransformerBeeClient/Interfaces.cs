@@ -36,7 +36,7 @@ public interface ICanConvertToEdifact
 /// <summary>
 /// Can provide information on whether you need to authenticate against transformer.bee and how
 /// </summary>
-public interface ITransformerBeeAuthenticationProvider
+public interface ITransformerBeeAuthenticator
 {
     /// <summary>
     /// returns true iff the client should use authentication
@@ -48,5 +48,5 @@ public interface ITransformerBeeAuthenticationProvider
     /// provides the token to authenticate against transformer.bee (if and only if <see cref="UseAuthentication"/> is true)
     /// </summary>
     /// <returns></returns>
-    public Task<string> GetTokenAsync(HttpClient client);
+    public Task<string> Authenticate(HttpClient client);
 }

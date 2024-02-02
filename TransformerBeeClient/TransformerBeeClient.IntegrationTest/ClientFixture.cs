@@ -12,7 +12,7 @@ public class ClientFixture : IClassFixture<ClientFixture>
 
     public readonly ServiceCollection ServiceCollection;
 
-    public readonly ITransformerBeeAuthenticationProvider AuthenticationProvider;
+    public readonly ITransformerBeeAuthenticator Authenticator;
 
     public ClientFixture()
     {
@@ -24,6 +24,6 @@ public class ClientFixture : IClassFixture<ClientFixture>
         var serviceProvider = services.BuildServiceProvider();
         ServiceCollection = services;
         HttpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
-        AuthenticationProvider = new NoAuthenticationProvider(); // easy for integration tests with transformer.bee running in docker
+        Authenticator = new NoAuthenticator(); // easy for integration tests with transformer.bee running in docker
     }
 }

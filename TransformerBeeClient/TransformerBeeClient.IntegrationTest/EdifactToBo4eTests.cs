@@ -2,6 +2,7 @@ using EDILibrary;
 using FluentAssertions;
 using TransformerBeeClient.Model;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace TransformerBeeClient.IntegrationTest;
 
@@ -12,19 +13,19 @@ public class EdifactToBo4eTests : IClassFixture<ClientFixture>
 {
     private readonly ClientFixture _client;
 
-    private readonly ITransformerBeeAuthenticationProvider _authenticationProvider;
+    private readonly ITransformerBeeAuthenticator _authenticator;
 
     public EdifactToBo4eTests(ClientFixture clientFixture)
     {
         _client = clientFixture;
-        _authenticationProvider = clientFixture.AuthenticationProvider;
+        _authenticator = clientFixture.Authenticator;
     }
 
     [Fact]
     public async Task Edifact_Can_Be_Converted_To_Bo4e()
     {
         var httpClientFactory = _client.HttpClientFactory;
-        ICanConvertToBo4e client = new TransformerBeeRestClient(httpClientFactory, _authenticationProvider);
+        ICanConvertToBo4e client = new TransformerBeeRestClient(httpClientFactory, _authenticator);
         var edifactString = await File.ReadAllTextAsync("TestEdifacts/FV2310/55001.edi");
         var result = await client.ConvertToBo4e(edifactString, EdifactFormatVersion.FV2310);
         result.Should().BeOfType<List<Marktnachricht>>();
@@ -39,28 +40,31 @@ public class EdifactToBo4eTestsWithAuthentication : IClassFixture<GithubActionCl
 {
     private readonly GithubActionClientFixture _client;
 
-    private readonly ITransformerBeeAuthenticationProvider? _authenticationProvider;
+    private readonly ITransformerBeeAuthenticator? _authenticationProvider;
 
-    public EdifactToBo4eTestsWithAuthentication(GithubActionClientFixture clientFixture)
+    ITestOutputHelper _output;
+
+    public EdifactToBo4eTestsWithAuthentication(GithubActionClientFixture clientFixture, ITestOutputHelper output)
     {
         _client = clientFixture;
         _authenticationProvider = clientFixture.AuthenticationProvider;
+        _output = output;
     }
 
-    [Fact]
+    [SkippableFact]
     public async Task Edifact_Can_Be_Converted_To_Bo4e_With_Authentication()
     {
         if (_authenticationProvider is null)
         {
-            await Console.Out.WriteLineAsync("Skipping tests because no client id or client secret is available");
-            return;
+            _output.WriteLine("Skipping test because no authentication provider is available");
         }
+        Skip.If(_authenticationProvider is null, "No authentication provider available");
         var httpClientFactory = _client.HttpClientFactory;
         ICanConvertToBo4e client = new TransformerBeeRestClient(httpClientFactory, _authenticationProvider);
         var edifactString = await File.ReadAllTextAsync("TestEdifacts/FV2310/55001.edi");
         var result = await client.ConvertToBo4e(edifactString, EdifactFormatVersion.FV2310);
         result.Should().BeOfType<List<Marktnachricht>>();
         result.Single().Transaktionen.Should().NotBeNullOrEmpty();
-        await Console.Out.WriteLineAsync("Successfully converted edifact to bo4e - with authentication!");
+        _output.WriteLine("Successfully converted edifact to bo4e - with authentication!");
     }
 }
