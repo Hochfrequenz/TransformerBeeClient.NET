@@ -1,8 +1,11 @@
+using System.Security.Authentication;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using EDILibrary;
 using TransformerBeeClient.Model;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace TransformerBeeClient;
 
@@ -11,7 +14,9 @@ namespace TransformerBeeClient;
 /// </summary>
 public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
 {
+    private readonly ITransformerBeeAuthenticator _authenticator;
     private readonly HttpClient _httpClient;
+
     private readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
         PropertyNameCaseInsensitive = true,
@@ -20,17 +25,32 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
 
     /// <summary>
     /// Provide the constructor with a http client factory.
-    /// It will create a client from said factory and use the <paramref name="clientName"/> for that.
+    /// It will create a client from said factory and use the <paramref name="httpClientName"/> for that.
     /// </summary>
     /// <param name="httpClientFactory">factory to create the http client from</param>
-    /// <param name="clientName">name used to create the client</param>
+    /// <param name="authenticator">something that tells you whether and how you need to authenticate yourself at transformer.bee</param>
+    /// <param name="httpClientName">name used to create the client</param>
     /// <remarks>Find the OpenAPI Spec here: https://transformerstage.utilibee.io/swagger/index.html</remarks>
-    public TransformerBeeRestClient(IHttpClientFactory httpClientFactory, string clientName = "TransformerBee")
+    public TransformerBeeRestClient(IHttpClientFactory httpClientFactory, ITransformerBeeAuthenticator authenticator, string httpClientName = "TransformerBee")
     {
-        _httpClient = httpClientFactory.CreateClient(clientName);
+        _httpClient = httpClientFactory.CreateClient(httpClientName);
         if (_httpClient.BaseAddress == null)
         {
-            throw new ArgumentNullException(nameof(httpClientFactory), $"The http client factory must provide a base address for the client with name '{clientName}'");
+            throw new ArgumentNullException(nameof(httpClientFactory), $"The http client factory must provide a base address for the client with name '{httpClientName}'");
+        }
+
+        _authenticator = authenticator ?? throw new ArgumentNullException(nameof(authenticator));
+    }
+
+    /// <summary>
+    /// Make sure that the client is authenticated, if necessary
+    /// </summary>
+    private async Task EnsureAuthentication()
+    {
+        if (_authenticator.UseAuthentication())
+        {
+            var token = await _authenticator.Authenticate(_httpClient);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
     }
 
@@ -53,6 +73,8 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
 
         var versionUrl = uriBuilder.Uri.AbsoluteUri;
         var response = await _httpClient.GetAsync(versionUrl);
+        // note that this is available without any authentication
+        // see e.g. http://transformerstage.utilibee.io/version
         return response.IsSuccessStatusCode;
     }
 
@@ -69,6 +91,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         {
             throw new ArgumentNullException(nameof(edifact));
         }
+
         var uriBuilder = new UriBuilder(_httpClient!.BaseAddress!)
         {
             Path = "/v1/transformer/EdiToBo4E"
@@ -81,12 +104,18 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
             FormatVersion = formatVersion,
         };
         var requestJson = JsonSerializer.Serialize(request, _jsonSerializerOptions);
+        await EnsureAuthentication();
         var httpResponse = await _httpClient.PostAsync(convertUrl, new StringContent(requestJson, Encoding.UTF8, "application/json"));
         if (!httpResponse.IsSuccessStatusCode)
         {
-            // e.g. 401
+            if (httpResponse.StatusCode == HttpStatusCode.Unauthorized && !_authenticator.UseAuthentication())
+            {
+                throw new AuthenticationException($"Did you correctly set up the {nameof(ITransformerBeeAuthenticator)}?");
+            }
+
             throw new HttpRequestException($"Could not convert {edifact} to BO4E. Status code: {httpResponse.StatusCode}");
         }
+
         var responseContent = await httpResponse.Content.ReadAsStringAsync();
         var bo4eResponse = JsonSerializer.Deserialize<EdifactToBo4eResponse>(responseContent, _jsonSerializerOptions);
         // todo: handle the case that the deserialization fails and bo4eResponse is null
@@ -102,6 +131,7 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
         {
             throw new ArgumentNullException(nameof(boneyComb));
         }
+
         var uriBuilder = new UriBuilder(_httpClient!.BaseAddress!)
         {
             Path = "/v1/transformer/Bo4ETransactionToEdi"
@@ -115,12 +145,18 @@ public class TransformerBeeRestClient : ICanConvertToBo4e, ICanConvertToEdifact
             FormatVersion = formatVersion,
         };
         var requestJson = JsonSerializer.Serialize(request, _jsonSerializerOptions);
+        await EnsureAuthentication();
         var httpResponse = await _httpClient.PostAsync(convertUrl, new StringContent(requestJson, Encoding.UTF8, "application/json"));
         if (!httpResponse.IsSuccessStatusCode)
         {
-            // e.g. 401
+            if (httpResponse.StatusCode == HttpStatusCode.Unauthorized && !_authenticator.UseAuthentication())
+            {
+                throw new AuthenticationException($"Did you correctly set up the {nameof(ITransformerBeeAuthenticator)}?");
+            }
+
             throw new HttpRequestException($"Could not convert to EDIFACT; Status code: {httpResponse.StatusCode}");
         }
+
         var responseContent = await httpResponse.Content.ReadAsStringAsync();
         // todo: ensure that the deserialization does not fail and the response is not empty
         var responseBody = JsonSerializer.Deserialize<Bo4eTransactionToEdifactResponse>(responseContent!, _jsonSerializerOptions);
