@@ -40,7 +40,7 @@ If, which is more likely, Hochfrequenz provided you with a client Id and secret,
 
 ```csharp
 using TransformerBeeClient;
-var myAuthenticator = new ClientIdClientSecretAuthenticationProvider("YOUR_CLIENT_ID", "YOUR_CLIENT_SECRET");
+var myAuthenticator = new ClientIdClientSecretAuthenticator("YOUR_CLIENT_ID", "YOUR_CLIENT_SECRET");
 ```
 
 ### Use with ASP.NET Core
