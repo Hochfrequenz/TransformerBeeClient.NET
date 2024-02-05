@@ -45,6 +45,10 @@ using TransformerBeeClient;
 var myAuthenticator = new ClientIdClientSecretAuthenticator("YOUR_CLIENT_ID", "YOUR_CLIENT_SECRET");
 ```
 
+#### Base Address
+The `HttpClient` instance used by the `TransformerBeeClient` has to have a `BaseAddress` set.
+Use e.g. `https://transformerstage.utilibee.io` for our test system.
+
 ### Use with ASP.NET Core
 This library is thought to be  primarily used in ASP.NET Core applications.
 That's why it assumes that you have an `IHttpClientFactory` available in your dependency injection container.
