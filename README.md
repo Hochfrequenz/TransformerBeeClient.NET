@@ -1,5 +1,5 @@
 # transformer.bee Client (.NET)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Nuget Package](https://badgen.net/nuget/v/TransformerBeeClient)
 
 This library is a .NET HTTP client for transformer.bee aka edifact-bo4e-converter.
