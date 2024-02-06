@@ -1,4 +1,6 @@
 # transformer.bee Client (.NET)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Nuget Package](https://badgen.net/nuget/v/TransformerBeeClient)
 
 This library is a .NET HTTP client for transformer.bee aka edifact-bo4e-converter.
 We also maintain a [Python version](https://github.com/Hochfrequenz/TransformerBeeClient.py) of this client.
@@ -17,7 +19,7 @@ You can check if your account is working by logging [into our stage environment]
 
 ### Using the client
 
-Install it from nuget [TransformerBeeClient](https://www.nuget.org/packages/TransformerBeeClient) ![Nuget Package](https://badgen.net/nuget/v/TransformerBeeClient):
+Install it from nuget [TransformerBeeClient](https://www.nuget.org/packages/TransformerBeeClient):
 
 ```bash
 dotnet add package TransformerBeeClient
