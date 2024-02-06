@@ -76,3 +76,11 @@ To release a new version of this library, [create a new release](https://github.
 Make sure its tag starts with `v` and the version number, e.g. `v1.2.3`.
 Tags without a release wont trigger the release workflow; This enforces that you have to write a changelog before releasing.
 Releases are not restricted to the main branch but we prefer them to happen there.
+
+## Related Tools and Context
+This repository is part of the [Hochfrequenz Libraries and Tools for a truly digitized market communication](https://github.com/Hochfrequenz/digital_market_communication/).
+
+## Hochfrequenz
+[Hochfrequenz Unternehmensberatung GmbH](https://www.hochfrequenz.de) is a Grünwald (near Munich) based consulting company with offices in Berlin and Bremen and attractive remote options.
+We're not only a main contributor for open source software for German utilities but, according to [Kununu ratings](https://www.kununu.com/de/hochfrequenz-unternehmensberatung1), also among the most attractive employers within the German energy market. Applications of talented developers are welcome at any time!
+Please consider visiting our [career page](https://www.hochfrequenz.de/index.php/karriere/aktuelle-stellenausschreibungen/full-stack-entwickler) (German only).
