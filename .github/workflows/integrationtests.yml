@@ -34,7 +34,7 @@ jobs:
         # Tokens will expire 2025-01-31
         run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ secrets.GHCR_USR }} --password-stdin
       - name: Start containers
-        run: docker-compose -f "TransformerBeeClient/TransformerBeeClient.IntegrationTest/docker-compose.yml" up -d
+        run: docker compose -f "TransformerBeeClient/TransformerBeeClient.IntegrationTest/docker-compose.yml" up -d
 
       - name: Install dependencies
         working-directory: TransformerBeeClient
