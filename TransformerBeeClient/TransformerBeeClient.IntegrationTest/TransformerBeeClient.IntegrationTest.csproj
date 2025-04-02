@@ -6,7 +6,8 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
-        <TargetFrameworks>net8.0;net6.0;net7.0</TargetFrameworks>
+        <TargetFramework>net9.0</TargetFramework>
+        <LangVersion>14</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
