@@ -1,8 +1,8 @@
 namespace TransformerBeeClient;
 
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Authentication;
 using IdentityModel.Client;
-using System.IdentityModel.Tokens.Jwt;
 
 /// <summary>
 /// a <see cref="ITransformerBeeAuthenticator"/> that is based on a client secret and a client id
@@ -43,15 +43,22 @@ public class ClientIdClientSecretAuthenticator : ITransformerBeeAuthenticator
     {
         if (!string.IsNullOrWhiteSpace(clientId) && string.IsNullOrWhiteSpace(clientSecret))
         {
-            throw new ArgumentNullException(nameof(clientSecret), $"If you provide a {nameof(clientId)} you must also provide a {nameof(clientSecret)}");
+            throw new ArgumentNullException(
+                nameof(clientSecret),
+                $"If you provide a {nameof(clientId)} you must also provide a {nameof(clientSecret)}"
+            );
         }
 
         if (!string.IsNullOrWhiteSpace(clientSecret) && string.IsNullOrWhiteSpace(clientId))
         {
-            throw new ArgumentNullException(nameof(clientId), $"If you provide a {nameof(clientSecret)} you must also provide a {nameof(clientId)}");
+            throw new ArgumentNullException(
+                nameof(clientId),
+                $"If you provide a {nameof(clientSecret)} you must also provide a {nameof(clientId)}"
+            );
         }
 
-        _useAuthentication = !string.IsNullOrWhiteSpace(clientId) && !string.IsNullOrWhiteSpace(clientSecret);
+        _useAuthentication =
+            !string.IsNullOrWhiteSpace(clientId) && !string.IsNullOrWhiteSpace(clientSecret);
         if (_useAuthentication)
         {
             _clientId = clientId;
@@ -69,7 +76,8 @@ public class ClientIdClientSecretAuthenticator : ITransformerBeeAuthenticator
         ArgumentNullException.ThrowIfNull(token);
         var handler = new JwtSecurityTokenHandler();
         var jwtToken = handler.ReadToken(token) as JwtSecurityToken;
-        if (jwtToken == null) return true; // Assume renewal if token cannot be read
+        if (jwtToken == null)
+            return true; // Assume renewal if token cannot be read
         var expiry = jwtToken.ValidTo;
         // Consider a buffer to renew the token a bit before it actually expires
         var buffer = TimeSpan.FromMinutes(5);
@@ -86,7 +94,9 @@ public class ClientIdClientSecretAuthenticator : ITransformerBeeAuthenticator
         var discoveryDocument = await client.GetDiscoveryDocumentAsync(Auth0Domain);
         if (discoveryDocument.IsError)
         {
-            throw new AuthenticationException($"Could not get discovery document from auth0: {discoveryDocument.Error}");
+            throw new AuthenticationException(
+                $"Could not get discovery document from auth0: {discoveryDocument.Error}"
+            );
         }
 
         return discoveryDocument;
@@ -103,7 +113,9 @@ public class ClientIdClientSecretAuthenticator : ITransformerBeeAuthenticator
         {
             if (!UseAuthentication())
             {
-                throw new AuthenticationException("You must provide a client id and a client secret to the constructor to authenticate with the transformer bee");
+                throw new AuthenticationException(
+                    "You must provide a client id and a client secret to the constructor to authenticate with the transformer bee"
+                );
             }
 
             if (!string.IsNullOrWhiteSpace(_token) && !TokenNeedsToBeRefreshed(_token))
@@ -125,7 +137,9 @@ public class ClientIdClientSecretAuthenticator : ITransformerBeeAuthenticator
             var tokenResponse = await client.RequestClientCredentialsTokenAsync(tokenRequest);
             if (tokenResponse.IsError)
             {
-                throw new AuthenticationException($"Could not get token from auth0: {tokenResponse.Error}");
+                throw new AuthenticationException(
+                    $"Could not get token from auth0: {tokenResponse.Error}"
+                );
             }
 
             _token = tokenResponse.AccessToken!;

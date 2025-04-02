@@ -20,7 +20,10 @@ public class ApplicationTest : IClassFixture<WebApplicationFactory<Program>>
     public async Task Test_That_Setup_Works_As_Designed()
     {
         var client = Factory.CreateDefaultClient();
-        var bo4e = await client.GetFromJsonAsync<BOneyComb>("/talkToTransformerBee", new JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } });
+        var bo4e = await client.GetFromJsonAsync<BOneyComb>(
+            "/talkToTransformerBee",
+            new JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } }
+        );
         bo4e.Should().NotBeNull();
     }
 }

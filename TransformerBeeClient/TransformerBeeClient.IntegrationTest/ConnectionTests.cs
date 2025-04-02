@@ -9,7 +9,6 @@ namespace TransformerBeeClient.IntegrationTest;
 /// </summary>
 public class ConnectionTests : IClassFixture<ClientFixture>
 {
-
     private readonly ClientFixture _client;
     private readonly ITransformerBeeAuthenticator _authenticator;
 
@@ -32,12 +31,18 @@ public class ConnectionTests : IClassFixture<ClientFixture>
     public async Task IsAvailable_Throws_Exception_If_Host_Is_Unavailable()
     {
         var services = new ServiceCollection();
-        services.AddHttpClient("TransformerBee", client =>
-        {
-            client.BaseAddress = new Uri("http://localhost:1234"); // <-- no service running under this address
-        });
+        services.AddHttpClient(
+            "TransformerBee",
+            client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:1234"); // <-- no service running under this address
+            }
+        );
         var serviceProvider = services.BuildServiceProvider();
-        var client = new TransformerBeeRestClient(serviceProvider.GetService<IHttpClientFactory>(), _authenticator);
+        var client = new TransformerBeeRestClient(
+            serviceProvider.GetService<IHttpClientFactory>(),
+            _authenticator
+        );
         var checkIfIsAvailable = async () => await client.IsAvailable();
         await checkIfIsAvailable.Should().ThrowAsync<HttpRequestException>();
     }
