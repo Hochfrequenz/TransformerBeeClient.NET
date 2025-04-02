@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   transformer:
-    image: ghcr.io/enercity/edifact-bo4e-converter/edifactbo4econverter:v1.1.29
+    image: ghcr.io/enercity/edifact-bo4e-converter/edifactbo4econverter:v1.3.1
     environment:
       - StorageProvider=Directory
     ports:
