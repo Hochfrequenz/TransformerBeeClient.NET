@@ -25,16 +25,19 @@ public class Bo4eToEdifactTests : IClassFixture<ClientFixture>
     public async Task BOneyComb_Can_Be_Converted_To_Edifact()
     {
         var httpClientFactory = _client.HttpClientFactory;
-        ICanConvertToEdifact client = new TransformerBeeRestClient(httpClientFactory, _authenticator);
+        ICanConvertToEdifact client = new TransformerBeeRestClient(
+            httpClientFactory,
+            _authenticator
+        );
         var boneyCombString = await File.ReadAllTextAsync("TestEdifacts/FV2310/55001.json");
         var deserializerOptions = new JsonSerializerOptions
         {
-            Converters =
-            {
-                new JsonStringEnumConverter()
-            }
+            Converters = { new JsonStringEnumConverter() },
         };
-        var boneyComb = System.Text.Json.JsonSerializer.Deserialize<BOneyComb>(boneyCombString, deserializerOptions);
+        var boneyComb = System.Text.Json.JsonSerializer.Deserialize<BOneyComb>(
+            boneyCombString,
+            deserializerOptions
+        );
         boneyComb.Should().NotBeNull();
         var result = await client.ConvertToEdifact(boneyComb, EdifactFormatVersion.FV2310);
         result.Should().BeOfType<string>().And.StartWith("UNB+UNOC");

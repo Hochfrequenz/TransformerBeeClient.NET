@@ -15,7 +15,10 @@ public interface ICanConvertToBo4e
     /// <param name="edifact">edifact message as string</param>
     /// <param name="formatVersion"><see cref="EdifactFormatVersion"/></param>
     /// <returns><see cref="Marktnachricht"/></returns>
-    public Task<List<Marktnachricht>> ConvertToBo4e(string edifact, EdifactFormatVersion formatVersion);
+    public Task<List<Marktnachricht>> ConvertToBo4e(
+        string edifact,
+        EdifactFormatVersion formatVersion
+    );
 }
 
 /// <summary>
