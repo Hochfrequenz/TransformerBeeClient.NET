@@ -45,7 +45,10 @@ public class EdifactToBo4eTestsWithAuthentication : IClassFixture<GithubActionCl
 
     ITestOutputHelper _output;
 
-    public EdifactToBo4eTestsWithAuthentication(GithubActionClientFixture clientFixture, ITestOutputHelper output)
+    public EdifactToBo4eTestsWithAuthentication(
+        GithubActionClientFixture clientFixture,
+        ITestOutputHelper output
+    )
     {
         _client = clientFixture;
         _authenticationProvider = clientFixture.AuthenticationProvider;
@@ -61,7 +64,10 @@ public class EdifactToBo4eTestsWithAuthentication : IClassFixture<GithubActionCl
         }
         Skip.If(_authenticationProvider is null, "No authentication provider available");
         var httpClientFactory = _client.HttpClientFactory;
-        ICanConvertToBo4e client = new TransformerBeeRestClient(httpClientFactory, _authenticationProvider);
+        ICanConvertToBo4e client = new TransformerBeeRestClient(
+            httpClientFactory,
+            _authenticationProvider
+        );
         var edifactString = await File.ReadAllTextAsync("TestEdifacts/FV2310/55001.edi");
         var result = await client.ConvertToBo4e(edifactString, EdifactFormatVersion.FV2310);
         result.Should().BeOfType<List<Marktnachricht>>();
