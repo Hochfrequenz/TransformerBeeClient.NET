@@ -24,10 +24,19 @@ public class GithubActionClientFixture : IClassFixture<GithubActionClientFixture
             return;
         }
         var services = new ServiceCollection();
-        services.AddHttpClient("TransformerBee", client => { client.BaseAddress = new Uri("http://transformerstage.utilibee.io"); });
+        services.AddHttpClient(
+            "TransformerBee",
+            client =>
+            {
+                client.BaseAddress = new Uri("http://transformerstage.utilibee.io");
+            }
+        );
         var serviceProvider = services.BuildServiceProvider();
         ServiceCollection = services;
         HttpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
-        AuthenticationProvider = new ClientIdClientSecretAuthenticator(clientId: clientId, clientSecret: clientSecret);
+        AuthenticationProvider = new ClientIdClientSecretAuthenticator(
+            clientId: clientId,
+            clientSecret: clientSecret
+        );
     }
 }

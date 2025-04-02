@@ -3,7 +3,7 @@
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <TargetFrameworks>net8.0;net6.0;net7.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
         <RepositoryUrl>https://github.com/Hochfrequenz/TransformerBeeClient.NET</RepositoryUrl>
         <License>MIT</License>
     </PropertyGroup>
@@ -14,7 +14,7 @@
 
     <ItemGroup>
       <PackageReference Include="EDILibrary.Core" Version="1.8.3" />
-      <PackageReference Include="Hochfrequenz.BO4Enet" Version="0.5.5" />
+      <PackageReference Include="Hochfrequenz.BO4Enet" Version="0.29.0" />
       <PackageReference Include="IdentityModel" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
