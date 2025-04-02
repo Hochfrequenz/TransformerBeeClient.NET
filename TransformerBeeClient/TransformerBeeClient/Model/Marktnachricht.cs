@@ -19,7 +19,7 @@ public class Marktnachricht
     /// <summary>
     /// One marktnachricht contains at least 1 transaction aka BOneyComb
     /// </summary>
-    [JsonPropertyName("transaktionen")]// we want to support both System.Text and Newtonsoft as long as BO4E.net does so
+    [JsonPropertyName("transaktionen")] // we want to support both System.Text and Newtonsoft as long as BO4E.net does so
     [JsonProperty(PropertyName = "transaktionen")]
     public List<BOneyComb>? Transaktionen { get; set; }
 
