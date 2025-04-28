@@ -1,23 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-        <RepositoryUrl>https://github.com/Hochfrequenz/TransformerBeeClient.NET</RepositoryUrl>
-        <License>MIT</License>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="EDILibrary.Core" Version="2.1.0" />
-      <PackageReference Include="Hochfrequenz.BO4Enet" Version="0.30.0" />
-      <PackageReference Include="IdentityModel" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.3" />
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.0" />
-    </ItemGroup>
-
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <RepositoryUrl>https://github.com/Hochfrequenz/TransformerBeeClient.NET</RepositoryUrl>
+    <License>MIT</License>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EDILibrary.Core" Version="2.1.0" />
+    <PackageReference Include="Hochfrequenz.BO4Enet" Version="0.30.0" />
+    <PackageReference Include="IdentityModel" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.0" />
+  </ItemGroup>
 </Project>

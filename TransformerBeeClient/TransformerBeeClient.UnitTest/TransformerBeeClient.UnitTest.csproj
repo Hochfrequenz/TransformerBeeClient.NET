@@ -1,26 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-
-        <IsPackable>false</IsPackable>
-        <IsTestProject>true</IsTestProject>
-        <TargetFramework>net9.0</TargetFramework>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="AwesomeAssertions" Version="8.1.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-        <PackageReference Include="coverlet.collector" Version="6.0.4" />
-        <PackageReference Include="xunit" Version="2.9.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference
-      Include="..\TransformerBeeClient\TransformerBeeClient.csproj"
-    />
-    </ItemGroup>
-
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AwesomeAssertions" Version="8.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="xunit" Version="2.9.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TransformerBeeClient\TransformerBeeClient.csproj" />
+  </ItemGroup>
 </Project>
