@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using EDILibrary;
-using FluentAssertions;
+using AwesomeAssertions;
 using TransformerBeeClient.Model;
 using Xunit;
 

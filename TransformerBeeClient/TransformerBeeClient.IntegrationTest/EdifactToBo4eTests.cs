@@ -1,5 +1,5 @@
 using EDILibrary;
-using FluentAssertions;
+using AwesomeAssertions;
 using TransformerBeeClient.Model;
 using Xunit;
 using Xunit.Abstractions;
