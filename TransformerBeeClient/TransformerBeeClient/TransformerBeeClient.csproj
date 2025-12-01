@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <RepositoryUrl>https://github.com/Hochfrequenz/TransformerBeeClient.NET</RepositoryUrl>
     <License>MIT</License>
   </PropertyGroup>
