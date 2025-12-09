@@ -3,7 +3,7 @@
 ![Nuget Package](https://badgen.net/nuget/v/TransformerBeeClient)
 
 This library is a .NET HTTP client for transformer.bee aka edifact-bo4e-converter.
-We also maintain a [Python version](https://github.com/Hochfrequenz/TransformerBeeClient.py) of this client.
+We also maintain a [Python](https://github.com/Hochfrequenz/TransformerBeeClient.py) [TypeScript](https://github.com/Hochfrequenz/TransformerBeeClient.ts) version of this client.
 
 It allows you to convert EDIFACT messages to BO4E and vice versa by speaking to Hochfrequenz's transformer.bee service.
 Note that the actual conversion happens in the transformer.bee service/backend, this library only provides a convenient way to use its API.
