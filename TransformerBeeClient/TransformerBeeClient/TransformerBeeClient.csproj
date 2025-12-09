@@ -11,7 +11,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EDILibrary.Core" Version="2.1.1" />
-    <PackageReference Include="Hochfrequenz.BO4Enet" Version="0.43.2" />
+    <PackageReference Include="Hochfrequenz.BO4Enet" Version="0.45.1" />
     <PackageReference Include="IdentityModel" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.4" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.0" />
