@@ -29,6 +29,20 @@ jobs:
         run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ secrets.GHCR_USR }} --password-stdin
       - name: Start containers
         run: docker compose -f "TransformerBeeClient/TransformerBeeClient.IntegrationTest/docker-compose.yml" up -d
+      - name: Wait for transformer.bee to be ready
+        # the container logs in a structured (JSON) format and no longer prints a startup marker we could grep for,
+        # so we poll /version (the same endpoint the converter uses as its kubernetes readiness probe)
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS "http://localhost:${TRANSFORMER_REST_PORT:-5021}/version"; then
+              echo "transformer.bee is up"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "transformer.bee did not become ready in time"
+          docker compose -f "TransformerBeeClient/TransformerBeeClient.IntegrationTest/docker-compose.yml" logs
+          exit 1
       - name: Run Unit Tests (dotnet test) # never ever release with failing tests!
         working-directory: "TransformerBeeClient"
         run: dotnet test --configuration Release
