@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        dotnet-version: ["9", "10"]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
@@ -20,7 +19,10 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          # global.json pins SDK 11; the 10.0 runtime is needed to run the net10.0 test targets
+          dotnet-version: |
+            10.0.x
+            11.0.x
 
       - name: Log into registry
         # GHCR_PAT is a personal access token for the Github Container Registry; You can create it using the following steps:
